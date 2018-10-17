@@ -4,7 +4,17 @@ const userSchema = new mongoose.Schema({
     googleId: String,
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
-    displayName: { type: String, default: '' }
+    displayName: { type: String, default: '' },
+    recipients: [
+        {
+            recipientId: { type: Schema.Types.ObjectId, ref: 'Recipient', required: true }
+        }
+    ],
+    invoices: [
+        {
+            invoiceId: {type: Schema.Types.ObjectId, ref: 'Invoice', required: true}
+        }
+    ]
 });
 
 module.exports = mongoose.model('Users', userSchema);
