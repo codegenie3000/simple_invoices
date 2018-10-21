@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
-    googleId: String,
+    email: { type: String, required: true },
+    googleId: { type: String },
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
     displayName: { type: String, default: '' },
@@ -9,12 +11,12 @@ const userSchema = new mongoose.Schema({
         {
             recipientId: { type: Schema.Types.ObjectId, ref: 'Recipient', required: true }
         }
-    ],
-    invoices: [
+    ]
+    /*invoices: [
         {
             invoiceId: {type: Schema.Types.ObjectId, ref: 'Invoice', required: true}
         }
-    ]
+    ]*/
 });
 
 module.exports = mongoose.model('Users', userSchema);

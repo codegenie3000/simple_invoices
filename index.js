@@ -5,6 +5,7 @@ const expressValidator = require('express-validator');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const mongoose = require('mongoose');
+// const path = require('path');
 
 const keys = require('./config/keys');
 
@@ -13,6 +14,9 @@ require('./services/passport');
 
 //mongoose
 mongoose.connect(keys.mongoURI);
+
+// const seed = require('./seeds');
+// seed();
 
 const app = express();
 
@@ -31,10 +35,23 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/invoiceRoutes')(app);
+require('./routes/recipientRoutes')(app);
 
 app.use('/home', (req, res) => {
     res.send('home');
 });
+
+/*app.get('/api/!*', (req, res, next) => {
+    let err = new Error('Page Not Found');
+    err.statusCode = 404;
+    next(err);
+});
+
+app.use((err, req, res, next) => {
+    console.log(err.message);
+    if (!err.statusCode) err.statusCode = 500;
+    res.status(err.statusCode).send(err.message);
+});*/
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
