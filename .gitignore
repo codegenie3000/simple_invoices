@@ -189,3 +189,4 @@ Temporary Items
 ### Ignore keys
 /config/dev.js
 /config/prod.js
+/config/test.js
