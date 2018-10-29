@@ -1,26 +1,28 @@
 const passport = require('passport');
+const User = require('../models/User');
 
 module.exports = (app) => {
-    app.get(
-        '/auth/google',
-        passport.authenticate('google', {
-            scope: ['profile', 'email']
-        })
-    );
-
-    app.get(
-        '/auth/google/callback',
-        passport.authenticate('google'),
-        (req, res) => {
-            console.log('logged user in');
-            res.redirect('/home');
-        }
-    );
+    // passport-local signup
+    app.post('/auth/local/signup', (req, res) => {
+        const NewUser = new User({'email': req.body.email});
+        User.register(NewUser, req.body.password, (err, account) => {
+            if (err) {
+                res.send(err);
+            }
+            passport.authenticate('local')(req, res, () => {
+                res.send('successfully logged in');
+            });
+        });
+    });
+    
+    app.post('/auth/local/login', passport.authenticate('local'), (req, res) => {
+        res.send('successfully logged in');
+    });
 
     app.get('/api/logout', (req, res) => {
         req.logout();
         console.log('logged out');
-        res.redirect('/home');
+        res.status(200).send('logged out');
     });
 
     app.get('/api/current_user', (req, res) => {
