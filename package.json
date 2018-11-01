@@ -4,8 +4,8 @@
   "description": "Simple personal invoicing",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js"
+    "test": "node_modules/mocha/bin/mocha --exit ./test/recipient.test.js",
+    "server": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,10 @@
     "path-parser": "^4.2.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.4",
+    "superagent": "^4.0.0-beta.5",
+    "supertest": "^3.3.0"
   }
 }

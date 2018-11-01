@@ -1,7 +1,11 @@
-
 // determine which credentials to return
-if (process.env.NODE_ENV === 'production') {
-    module.exports = require('./prod');
-} else {
-    module.exports = require('./dev');
+switch(process.env.NODE_ENV) {
+    case 'production':
+        module.exports = require('./prod');
+        break;
+    case 'test':
+        module.exports = require('./test');
+        break;
+    default:
+        module.exports = require('./dev');
 }

@@ -37,7 +37,7 @@ require('./routes/authRoutes')(app);
 require('./routes/invoiceRoutes')(app);
 require('./routes/recipientRoutes')(app);
 
-app.use('/home', (req, res) => {
+app.use('/test', (req, res) => {
     res.send('home');
 });
 
@@ -53,5 +53,12 @@ app.use((err, req, res, next) => {
     res.status(err.statusCode).send(err.message);
 });*/
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT);
+// for testing purposes
+if (process.env.NODE_ENV === 'test') {
+    module.exports = app;
+} else {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`App is listening on port ${PORT}`);
+    });
+}
