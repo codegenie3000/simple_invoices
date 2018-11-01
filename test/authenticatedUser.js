@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 const userCredentials = {
     email: 'me@test.com',
     password: 'testPassword',
@@ -9,7 +7,7 @@ const userCredentials = {
 };
 
 module.exports = {
-    createUser: function(authenticatedUser, done) {
+    createUser: function(authenticatedUser, done) { // authenticatedUser is passed from supertest
         authenticatedUser
             .post('/auth/local/signup')
             .set('Accept', 'text/html')

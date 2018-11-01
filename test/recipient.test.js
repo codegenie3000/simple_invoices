@@ -1,11 +1,10 @@
 process.env.NODE_ENV = 'test';
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 // const chai = require('chai');
+// chai.use(request);
 const app = require('../app');
 const request = require('supertest');
-
-// chai.use(request);
 
 const authenticatedUser = request.agent(app);
 const createUser = require('./authenticatedUser').createUser;
