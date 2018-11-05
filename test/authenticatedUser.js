@@ -1,5 +1,5 @@
 const userCredentials = {
-    email: 'me@test.com',
+    email: 'hansolod@test.com',
     password: 'testPassword',
     firstName: 'Han',
     lastName: 'Solo',

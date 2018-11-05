@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const invoiceSchema = new mongoose.Schema({
-    recipientId: {type: Schema.Types.ObjectId, ref: 'Recipient', required: true},
+    recipientId: {type: Schema.Types.ObjectId, ref: 'Recipient'},
+    ownerId: {type: Schema.Types.ObjectId, ref: 'User'},
     date: {type: Date, default: Date.now, required: true},
     lineItems: [
         {
@@ -19,4 +20,4 @@ const invoiceSchema = new mongoose.Schema({
     balance: {type: Number}
 });
 
-module.exports = mongoose.model('Invoices', invoiceSchema);
+module.exports = mongoose.model('Invoice', invoiceSchema);

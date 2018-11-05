@@ -6,25 +6,18 @@ const UserSchema = new mongoose.Schema({
     email: String,
     salt: String,
     hash: String,
-    firstName: { type: String, default: '' },
-    lastName: { type: String, default: '' },
-    displayName: { type: String, default: '' },
+    firstName: String,
+    lastName: String,
+    displayName: String,
     recipients: [
         {
-            recipientId: { type: Schema.Types.ObjectId, ref: 'Recipient', required: true }
+            recipientId: { type: Schema.Types.ObjectId, ref: 'Recipient' }
         }
     ]
-    /*invoices: [
-        {
-            invoiceId: {type: Schema.Types.ObjectId, ref: 'Invoice', required: true}
-        }
-    ]*/
 });
 
 UserSchema.plugin(passportLocalMongoose, {
     usernameField: 'email'
-    // saltField: 'salt',
-    // hashField: 'hash'
 });
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

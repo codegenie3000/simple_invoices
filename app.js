@@ -9,11 +9,13 @@ const mongoose = require('mongoose');
 
 const keys = require('./config/keys');
 
-require('./models/User');
-require('./services/passport');
-
 //mongoose
 mongoose.connect(keys.mongoURI);
+
+require('./services/passport');
+require('./models/User');
+require('./models/Recipient');
+require('./models/Invoice');
 
 // const seed = require('./seeds');
 // seed();
