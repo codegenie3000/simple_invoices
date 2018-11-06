@@ -11,10 +11,10 @@ const InvoiceSubSchema = new mongoose.Schema(
 );
 
 const recipientSchema = new mongoose.Schema({
-    ownerId: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+    ownerId: {type: Schema.Types.ObjectId, ref: 'User' },
     name: {type: String, default: '', required: true},
     email: {type: String, default: '', required: true},
     invoices: [InvoiceSubSchema]
 });
 
-module.exports = mongoose.model('Recipients', recipientSchema);
+module.exports = mongoose.model('Recipient', recipientSchema);
