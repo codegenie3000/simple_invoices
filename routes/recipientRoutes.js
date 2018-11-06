@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator/check');
 const requireLogin = require('../middleware/requireLogin');
-const Recipient = require('../models/Recipient');
+const checkRecipientOwnership = require('../middleware/checkOwnership').recipientId;
 
-mongoose.Promise = Promise;
+const Recipient = require('../models/Recipient');
+const User = require('../models/User');
 
 const checkAndSanitize = [
     check('email').not().isEmpty().isEmail().custom(value => {
@@ -35,17 +36,24 @@ module.exports = app => {
     });
 
     // one recipient (show)
-    app.get('/api/recipients/:id', requireLogin, (req, res, next) => {
-        Recipient.find({
-            ownerId: req.user.id,
-            _id: req.params.id
-        }, (err, recipientsArray) => {
+    app.get('/api/recipients/:recipientId', requireLogin, checkRecipientOwnership, (req, res, next) => {
+        Recipient.findById(req.params.recipientId, (err, recipientsArray) => {
             if (err) {
                 next(err);
             } else {
                 res.send(recipientsArray);
             }
         });
+        /*Recipient.find({
+            ownerId: req.user._id,
+            _id: req.params.recipientId
+        }, (err, recipientsArray) => {
+            if (err) {
+                next(err);
+            } else {
+                res.send(recipientsArray);
+            }
+        });*/
     });
 
     // create recipient
@@ -54,13 +62,10 @@ module.exports = app => {
         if (!errors.isEmpty()) {
             return res.status(422).json({ errors: errors.array() });
         }
-        // get userId
-        const userId = req.user.id;
-        // create objectID for recipient
-        const recipientId = mongoose.Types.ObjectId();
+        // get user's ObjectId
+        const userId = req.user._id;
 
         const recipient = new Recipient({
-            id: recipientId,
             ownerId: userId,
             name: req.body.name,
             email: req.body.email
@@ -70,22 +75,46 @@ module.exports = app => {
                 console.log(err);
                 res.send(err);
             } else {
-                res.send(savedRecord);
+                const userQuery = User.findOneAndUpdate(
+                    {
+                        _id: userId,
+                    },
+                    {
+                        $push: { recipients: { recipientId: savedRecord._id } }
+                    }, { new: true }).exec();
+                userQuery
+                    .then(user => {
+                        res.send(user);
+                    })
+                    .catch(err => {
+                        next(err);
+                    });
             }
         });
 
     });
 
     // update recipient
-    app.put('/api/recipients/:id', requireLogin, checkAndSanitize, (req, res) => {
-        const userId = req.user.id;
-        const recipientId = req.params.id;
+    app.put('/api/recipients/:recipientId', requireLogin, checkRecipientOwnership, checkAndSanitize, (req, res, next) => {
+        // const ownerId = req.user._id;
+        const recipientId = req.params.recipientId;
+
+        Recipient.findByIdAndUpdate(recipientId, {
+            $set: {
+                name: req.body.name,
+                email: req.body.email
+            }
+        }, { new: true }, (err, updatedRecipient) => {
+            if (err) {
+                next(err);
+            }
+            res.send(updatedRecipient);
+        });
 
         // find by ID and update
-        Recipient.findOneAndUpdate(
+        /*Recipient.findOneAndUpdate(
             {
-                ownerId: userId,
-                _id: recipientId,
+                id: recipientId
             },
             {
                 $set: {
@@ -104,14 +133,47 @@ module.exports = app => {
                     res.send(recipient);
                 }
             }
-        );
+        );*/
     });
     // delete recipient
-    app.delete('/api/recipients/:id', requireLogin, (req, res) => {
-        const query = Recipient.findByIdAndDelete(req.params.id).exec();
+    app.delete('/api/recipients/:recipientId', requireLogin, checkRecipientOwnership, (req, res, next) => {
+        const userId = req.user.id;
+        const recipientId = req.params.recipientId;
+        const updatedUser = User.findByIdAndUpdate(userId,
+            {
+                recipients: {$pull: {recipientId: recipientId}}
+            },
+            {
+                new: true
+            }).exec();
+        updatedUser
+            .then(updatedUser => {
+                const deletedRecipient = Recipient.findOneAndDelete(recipientId).exec();
+                deletedRecipient
+                    .then(recipient => {
+                        res.send(recipient);
+                    })
+                    .catch(err => {
+                        next(err);
+                    });
+            })
+            .catch(err => {
+                next(err);
+            });
+            /*(err, updatedUser) => {
+                const deletedRecipient = Recipient.findOneAndDelete(recipientId).exec();
+                deletedRecipient
+                    .then(recipient => {
+                        res.send(recipient)
+                    })
+                    .catch(err => {
+                        next(err);
+                    });
+            });*/
+        /*const query = Recipient.findByIdAndDelete(req.params.id).exec();
         query.then(doc => {
             res.send(doc);
         })
-            .catch(err => res.send(err));
+            .catch(err => res.send(err));*/
     });
 };

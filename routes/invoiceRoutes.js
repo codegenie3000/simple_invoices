@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Invoice = require('../models/Invoice');
 const Recipient = require('../models/Recipient');
 
-const checkRecipientOwnership = require('../middleware/checkOwnership');
+// const checkRecipientOwnership = require('../middleware/checkOwnership');
 
 function convertIdToObjectId(stringId) {
     return mongoose.Types.ObjectId(stringId);
@@ -14,7 +14,7 @@ function convertIdToObjectId(stringId) {
 
 module.exports = app => {
     // get all invoices for a recipient
-    app.get('/api/recipients/:recipientId/invoices', requireLogin, checkRecipientOwnership, (req, res, next) => {
+    app.get('/api/recipients/:recipientId/invoices', requireLogin, /*checkRecipientOwnership,*/ (req, res, next) => {
         const recipientId = convertIdToObjectId(req.params.recipientId);
         const invoiceQuery = Invoice.find({ recipientId: recipientId }).exec();
         invoiceQuery.then(invoices => {
