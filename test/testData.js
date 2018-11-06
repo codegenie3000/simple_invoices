@@ -1,17 +1,17 @@
 const recipientData = {
     one: {
-        name: 'Luke Skywalker',
-        email: 'luke@test.com'
+        name: 'Omar Little',
+        email: 'omarlittle@thewire.com'
     },
     two: {
-        name: 'Anakin Skywalker',
-        email: 'anakin@test.com'
+        name: 'Avon Barksdale',
+        email: 'avonbarksdale@thewire.com'
     }
 };
 
 const updatedRecipientData = {
-    name: 'Darth Vader',
-    email: 'darth@test.com'
+    name: 'Bunk Moreland',
+    email: 'bunkmoreland@thewire.com'
 };
 
 module.exports = {

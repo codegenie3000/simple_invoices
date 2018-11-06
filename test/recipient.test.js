@@ -87,12 +87,13 @@ describe('Test Recipient Routes', function () {
                 console.log(err);
                 done();
             }
-            console.log('ran');
+            console.log('dropped recipient collection');
             dropCollection('users', done, function(err) {
                 if (err) {
                     console.log(err);
                     done();
                 }
+                console.log('dropped users collection');
                 done();
             });
         });

@@ -1,9 +1,9 @@
 const userCredentials = {
-    email: 'hansolod@test.com',
+    email: 'jimmymcnulty@thewire.com',
     password: 'testPassword',
-    firstName: 'Han',
-    lastName: 'Solo',
-    displayName: 'Han Solo'
+    firstName: 'Jimmy',
+    lastName: 'McNulty',
+    displayName: 'Jimmy McNulty'
 };
 
 module.exports = {
