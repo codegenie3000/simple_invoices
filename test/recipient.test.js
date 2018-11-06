@@ -9,8 +9,9 @@ const request = require('supertest');
 const authenticatedUser = request.agent(app);
 const createUser = require('./authenticatedUser').createUser;
 const dropCollection = require('./dbUtilities');
+const {recipientData, updatedRecipientData} = require('./testData');
 
-const recipientData = {
+/*const recipientData = {
     one: {
         name: 'Luke Skywalker',
         email: 'luke@skywalker.com'
@@ -24,7 +25,7 @@ const recipientData = {
 const updatedRecipientData = {
     name: 'Darth Vader',
     email: 'darth@vader.com'
-};
+};*/
 
 let recipientOneId;
 
@@ -32,7 +33,7 @@ describe('Test Recipient Routes', function () {
     before(function (done) {
         createUser(authenticatedUser, done);
     });
-    it('POST one recipient', function (done) {
+    it('POST\'s one recipient', function (done) {
         authenticatedUser
             .post('/api/recipients')
             .set('Accept', 'application/json')
@@ -40,7 +41,7 @@ describe('Test Recipient Routes', function () {
             .expect('Content-Type', /json/)
             .expect(200, done);
     });
-    it('POST another recipient', function (done) {
+    it('POST\'s another recipient', function (done) {
         authenticatedUser
             .post('/api/recipients')
             .set('Accept', 'application/json')
