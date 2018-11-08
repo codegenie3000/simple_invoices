@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 const { check, validationResult } = require('express-validator/check');
 const requireLogin = require('../middleware/requireLogin');
-const checkRecipientOwnership = require('../middleware/checkOwnership').recipientId;
+const checkRecipientOwnership = require('../middleware/checkOwnership').recipient;
 
 const Recipient = require('../models/Recipient');
 const User = require('../models/User');
+
+function convertIdToObjectId(stringId) {
+    return mongoose.Types.ObjectId(stringId);
+}
 
 const checkAndSanitize = [
     check('email').not().isEmpty().isEmail().custom(value => {
@@ -78,13 +82,14 @@ module.exports = app => {
                 const userQuery = User.findOneAndUpdate(
                     {
                         _id: userId,
-                    },
-                    {
-                        $push: { recipients: { recipientId: savedRecord._id } }
-                    }, { new: true }).exec();
+                    }, {
+                        $push: { recipients: savedRecord._id }
+                    }, {
+                        new: true
+                    }).exec();
                 userQuery
                     .then(user => {
-                        res.send(user);
+                        res.send(savedRecord.id);
                     })
                     .catch(err => {
                         next(err);
@@ -138,10 +143,10 @@ module.exports = app => {
     // delete recipient
     app.delete('/api/recipients/:recipientId', requireLogin, checkRecipientOwnership, (req, res, next) => {
         const userId = req.user.id;
-        const recipientId = req.params.recipientId;
+        const recipientId = convertIdToObjectId(req.params.recipientId);
         const updatedUser = User.findByIdAndUpdate(userId,
             {
-                recipients: {$pull: {recipientId: recipientId}}
+                $pull: { recipients: recipientId }
             },
             {
                 new: true
@@ -160,16 +165,16 @@ module.exports = app => {
             .catch(err => {
                 next(err);
             });
-            /*(err, updatedUser) => {
-                const deletedRecipient = Recipient.findOneAndDelete(recipientId).exec();
-                deletedRecipient
-                    .then(recipient => {
-                        res.send(recipient)
-                    })
-                    .catch(err => {
-                        next(err);
-                    });
-            });*/
+        /*(err, updatedUser) => {
+            const deletedRecipient = Recipient.findOneAndDelete(recipientId).exec();
+            deletedRecipient
+                .then(recipient => {
+                    res.send(recipient)
+                })
+                .catch(err => {
+                    next(err);
+                });
+        });*/
         /*const query = Recipient.findByIdAndDelete(req.params.id).exec();
         query.then(doc => {
             res.send(doc);

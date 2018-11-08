@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Invoice = require('../models/Invoice');
 const Recipient = require('../models/Recipient');
 
-// const checkRecipientOwnership = require('../middleware/checkOwnership');
+const checkInvoiceOwnership = require('../middleware/checkOwnership').invoice;
+const checkRecipientOwnership = require('../middleware/checkOwnership').recipient;
 
 function convertIdToObjectId(stringId) {
     return mongoose.Types.ObjectId(stringId);
@@ -14,7 +15,7 @@ function convertIdToObjectId(stringId) {
 
 module.exports = app => {
     // get all invoices for a recipient
-    app.get('/api/recipients/:recipientId/invoices', requireLogin, /*checkRecipientOwnership,*/ (req, res, next) => {
+    app.get('/api/recipients/:recipientId/invoices', requireLogin, checkInvoiceOwnership, (req, res, next) => {
         const recipientId = convertIdToObjectId(req.params.recipientId);
         const invoiceQuery = Invoice.find({ recipientId: recipientId }).exec();
         invoiceQuery.then(invoices => {
@@ -42,12 +43,14 @@ module.exports = app => {
         });
     });
     // Create/add an invoice for a recipient
-    app.post('/api/recipients/:recipientId/invoices', requireLogin, (req, res, next) => {
+    app.post('/api/recipients/:recipientId/invoices', requireLogin, checkRecipientOwnership, (req, res, next) => {
         const { lineItems, subTotal, tax, adjustment, total, amountPaid, balance } = req.body;
-        const recipientId = req.params.recipientId;
+        const recipientId = convertIdToObjectId(req.params.recipientId);
+
+        // create new invoice object with recipient Id object
         const newInvoice = new Invoice({
             ownerId: req.user._id,
-            recipientId: convertIdToObjectId(recipientId),
+            recipientId: recipientId,
             date: new Date(),
             lineItems: lineItems,
             subTotal: subTotal,
@@ -57,14 +60,22 @@ module.exports = app => {
             amountPaid: amountPaid,
             balance: balance
         });
+
+        // save invoice
         const saveInvoice = newInvoice.save();
         saveInvoice
             .then(savedInvoice => {
                 // res.send(savedInvoice);
                 const savedInvoiceId = savedInvoice._id;
-                Recipient.findOneAndUpdate({ _id: recipientId}, {
-                    $push: {invoices: {invoiceId: savedInvoiceId}}
-                }, {new: true}).exec()
+                // push saved invoice Id Object into invoices array inside of Recipient
+                Recipient.findOneAndUpdate(
+                    {
+                        _id: recipientId
+                    },
+                    {
+                        $push: { invoices: { invoiceId: savedInvoiceId } }
+                    },
+                    { new: true }).exec()
                     .then(updatedRecipient => {
                         res.send(updatedRecipient);
                     })
