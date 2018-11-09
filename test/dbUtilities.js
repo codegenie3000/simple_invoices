@@ -8,6 +8,8 @@ module.exports = function(collectionName, done, cb) {
         }
         if (cb) {
             cb();
+        } else {
+            done();
         }
     });
 };

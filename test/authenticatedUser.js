@@ -7,13 +7,18 @@ const userCredentials = {
 };
 
 module.exports = {
-    createUser: function(authenticatedUser, done) { // authenticatedUser is passed from supertest
+    createUser: function(authenticatedUser, done) {
+        // authenticatedUser is passed from supertest
         authenticatedUser
             .post('/auth/local/signup')
             .set('Accept', 'text/html')
             .send(userCredentials)
             .expect(200)
             .expect('Content-Type', /text/)
-            .expect('success', done);
+            .expect('success')
+            .end(() => {
+                console.log('added user');
+                done();
+            });
     }
 };

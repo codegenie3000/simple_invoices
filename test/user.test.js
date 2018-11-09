@@ -30,6 +30,9 @@ describe('Test user account', function () {
     after(function (done) {
         // access mongodb native driver and
         // drop collection including indexes
-        dropCollection('users', done);
+        dropCollection('users', done, function() {
+            console.log('dropped users collection');
+            done();
+        });
     });
 });
