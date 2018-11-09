@@ -82,11 +82,14 @@ module.exports = app => {
                 const userQuery = User.findOneAndUpdate(
                     {
                         _id: userId,
-                    }, {
+                    },
+                    {
                         $push: { recipients: savedRecord._id }
-                    }, {
+                    },
+                    {
                         new: true
-                    }).exec();
+                    })
+                    .exec();
                 userQuery
                     .then(user => {
                         res.send(savedRecord.id);
