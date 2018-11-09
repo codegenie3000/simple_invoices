@@ -6,9 +6,6 @@ const LineItemSubSchema = new mongoose.Schema(
         qty: { type: Number, default: 1, required: true },
         type: { type: String, default: '', required: true },
         amount: { type: Number, default: 1, required: true }
-    },
-    {
-        _id: false
     }
 );
 
