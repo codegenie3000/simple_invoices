@@ -38,7 +38,7 @@ describe('Test Recipient Routes', function () {
             .post('/api/recipients')
             .set('Accept', 'application/json')
             .send(recipientData.one)
-            .expect('Content-Type', /json/)
+            .expect('Content-Type', /html/)
             .expect(200, done);
     });
     it('POST\'s another recipient', function (done) {
@@ -46,7 +46,7 @@ describe('Test Recipient Routes', function () {
             .post('/api/recipients')
             .set('Accept', 'application/json')
             .send(recipientData.two)
-            .expect('Content-Type', /json/)
+            .expect('Content-Type', /html/)
             .expect(200, done);
     });
     it('GET all recipients', function (done) {
@@ -63,7 +63,6 @@ describe('Test Recipient Routes', function () {
     it('GET one recipient', function(done) {
         authenticatedUser
             .get(`/api/recipients/${recipientOneId}`)
-            // .set('Accept', 'application/json')
             .expect(200)
             .expect('Content-Type', /json/, done);
     });
@@ -80,7 +79,7 @@ describe('Test Recipient Routes', function () {
             .delete(`/api/recipients/${recipientOneId}`)
             // .set('Accept', 'application/json')
             .expect(200)
-            .expect('Content-Type', /json/, done)
+            .expect('Content-Type', /text/, done)
     });
     after(function (done) {
         dropCollection('recipients', done, function(err) {

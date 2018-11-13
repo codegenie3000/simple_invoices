@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
-/*const RecipientSubSchema = new mongoose.Schema(
+const RecipientSubSchema = new mongoose.Schema(
     {
         recipientId: { type: Schema.Types.ObjectId, ref: 'Recipient' }
     },
     {
         _id: false
     }
-);*/
+);
 
 const UserSchema = new mongoose.Schema({
     email: String,
@@ -18,13 +18,7 @@ const UserSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     displayName: String,
-    recipients: [ mongoose.Schema.Types.ObjectId ]
-    /*recipients: [
-        {
-            _id: false,
-            recipientId: { type: Schema.Types.ObjectId, ref: 'Recipient' }
-        }
-    ]*/
+    recipients: [ RecipientSubSchema ]
 });
 
 UserSchema.plugin(passportLocalMongoose, {

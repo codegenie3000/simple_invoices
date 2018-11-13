@@ -84,7 +84,7 @@ module.exports = app => {
                         _id: userId,
                     },
                     {
-                        $push: { recipients: savedRecord._id }
+                        $push: {recipients: {recipientId: savedRecord._id}}
                     },
                     {
                         new: true
@@ -149,7 +149,7 @@ module.exports = app => {
         const recipientId = convertIdToObjectId(req.params.recipientId);
         const updatedUser = User.findByIdAndUpdate(userId,
             {
-                $pull: { recipients: recipientId }
+                $pull: { recipients: {recipientId: recipientId} }
             },
             {
                 new: true
@@ -159,7 +159,7 @@ module.exports = app => {
                 const deletedRecipient = Recipient.findOneAndDelete(recipientId).exec();
                 deletedRecipient
                     .then(recipient => {
-                        res.send(recipient);
+                        res.send('success');
                     })
                     .catch(err => {
                         next(err);
