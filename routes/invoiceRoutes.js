@@ -19,7 +19,7 @@ module.exports = app => {
         const recipientId = convertIdToObjectId(req.params.recipientId);
         const invoiceQuery = Invoice.find({ recipientId: recipientId }).exec();
         invoiceQuery.then(invoices => {
-            res.status(200).send(invoices);
+            res.send(invoices);
         });
         invoiceQuery.catch(err => {
             next(err);
@@ -33,6 +33,7 @@ module.exports = app => {
         // console.log(typeof(req.user.id), typeof(recipientId));
         const invoiceQuery = Invoice.findOne({
             _id: convertIdToObjectId(invoiceId)
+            // should I use id instead?
         })
             .populate('recipientId')
             .exec();
@@ -74,7 +75,7 @@ module.exports = app => {
                         _id: recipientId
                     },
                     {
-                        $push: { invoices: savedInvoice._id }
+                        $push: { invoices: { invoiceId: savedInvoice._id } }
                     },
                     {
                         new: true
@@ -82,7 +83,7 @@ module.exports = app => {
                     .exec();
                 recipientQuery
                     .then(updatedRecipient => {
-                        res.send(savedInvoice.id);
+                        res.send('success');
                     })
                     .catch(err => {
                         next(err);
@@ -132,7 +133,7 @@ module.exports = app => {
         // find recipient by id and remove the invoiceId from the invoices array
         const updatedRecipient = Recipient.findOneAndUpdate(recipientId,
             {
-                $pull: {invoices: invoiceId}
+                $pull: { invoices: { invoiceId: invoiceId } }
             },
             {
                 new: true
@@ -142,7 +143,7 @@ module.exports = app => {
                 const deletedInvoice = Invoice.findOneAndDelete(invoiceId).exec();
                 deletedInvoice
                     .then(invoice => {
-                        res.send('deleted invoice');
+                        res.send('success');
                         // res.send(invoice);
                     })
                     .catch(err => {

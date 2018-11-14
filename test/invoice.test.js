@@ -2,11 +2,13 @@ process.env.NODE_ENV = 'test';
 
 const app = require('../app');
 const request = require('supertest');
+const expect = require('chai').expect;
 
 const authenticatedUser = request.agent(app);
 const { createUser } = require('./authenticatedUser');
 const { recipientData, updatedRecipientData } = require('./testData');
 const dropCollection = require('./dbUtilities');
+
 
 let recipientId;
 let invoiceId;
@@ -46,17 +48,20 @@ const invoiceData = {
 
 describe('Test Invoice Routes', function () {
     before(function (done) {
+        // create user
         createUser(authenticatedUser, done);
     });
-    it('POST\'s one recipient', function (done) {
+    before(function (done) {
+        // create an invoice recipient
         authenticatedUser
             .post('/api/recipients')
             .set('Accept', 'application/json')
             .send(recipientData.one)
-            .expect('Content-Type', /json/)
+            .expect('Content-Type', /html/)
             .expect(200)
             .end(function (err, res) {
-                recipientId = res.body._id;
+                // console.log(res.body);
+                recipientId = res.body;
                 done();
             });
     });
@@ -65,22 +70,16 @@ describe('Test Invoice Routes', function () {
             .post(`/api/recipients/${recipientId}/invoices`)
             .set('Accept', 'application/json')
             .send(invoiceData.one)
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                done();
-            });
+            .expect('Content-Type', /html/)
+            .expect(200, done);
     });
     it('POST\'s another invoice', function(done) {
         authenticatedUser
             .post(`/api/recipients/${recipientId}/invoices`)
             .set('Accept', 'application/json')
             .send(invoiceData.two)
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                done();
-            });
+            .expect('Content-Type', /html/)
+            .expect(200, done);
     });
     it('GET\'s all invoices', function(done) {
         authenticatedUser
@@ -88,6 +87,7 @@ describe('Test Invoice Routes', function () {
             .expect(200)
             .expect('Content-Type', /json/)
             .end(function (err, res) {
+                // console.log(res.body);
                 invoiceId = res.body[0]._id;
                 done();
             });
@@ -98,8 +98,24 @@ describe('Test Invoice Routes', function () {
             .expect(200)
             .expect('Content-Type', /json/, done)
     });
+    it('DELETE\'s one invoice', function(done) {
+        authenticatedUser
+            .delete(`/api/recipients/${recipientId}/invoices/${invoiceId}`)
+            .expect(200)
+            .expect('Content-Type', /html/, done);
+    });
+    it('GET\'s all invoices and checks if length is one', function(done) {
+        authenticatedUser
+            .get(`/api/recipients/${recipientId}/invoices/`)
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(function(err, res) {
+                expect(res.body).to.have.length(1);
+                done();
+            });
+    });
     after(function (done) {
-        dropCollection('invoices', done, function (err) {
+        dropCollection('users', done, function (err) {
             if (err) {
                 console.log(err);
                 done();
@@ -111,7 +127,7 @@ describe('Test Invoice Routes', function () {
                     done();
                 }
                 console.log('dropped user collection');
-                dropCollection('users', done, function(err) {
+                dropCollection('invoices', done, function(err) {
                     if (err) {
                         console.log(err);
                         done();

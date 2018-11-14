@@ -92,7 +92,7 @@ module.exports = app => {
                     .exec();
                 userQuery
                     .then(user => {
-                        res.send(savedRecord.id);
+                        res.send(savedRecord._id);
                     })
                     .catch(err => {
                         next(err);
