@@ -1,10 +1,8 @@
 process.env.NODE_ENV = 'test';
 
-// const mongoose = require('mongoose');
-// const chai = require('chai');
-// chai.use(request);
 const app = require('../app');
 const request = require('supertest');
+const expect = require('chai').expect;
 
 const authenticatedUser = request.agent(app);
 const createUser = require('./authenticatedUser').createUser;
@@ -80,6 +78,16 @@ describe('Test Recipient Routes', function () {
             // .set('Accept', 'application/json')
             .expect(200)
             .expect('Content-Type', /text/, done)
+    });
+    it('GET\'s all invoices and checks if length is one', function(done) {
+        authenticatedUser
+            .get('/api/recipients')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, res) {
+                expect(res.body).to.have.length(1);
+                done();
+            });
     });
     after(function (done) {
         dropCollection('recipients', done, function(err) {

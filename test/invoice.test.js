@@ -5,8 +5,8 @@ const request = require('supertest');
 const expect = require('chai').expect;
 
 const authenticatedUser = request.agent(app);
-const { createUser } = require('./authenticatedUser');
-const { recipientData, updatedRecipientData } = require('./testData');
+const createUser = require('./authenticatedUser').createUser;
+const { recipientData } = require('./testData');
 const dropCollection = require('./dbUtilities');
 
 
@@ -51,17 +51,15 @@ describe('Test Invoice Routes', function () {
         // create user
         createUser(authenticatedUser, done);
     });
-    before(function (done) {
-        // create an invoice recipient
+    before(function(done) {
         authenticatedUser
             .post('/api/recipients')
             .set('Accept', 'application/json')
             .send(recipientData.one)
-            .expect('Content-Type', /html/)
+            .expect('Content-Type', /text/)
             .expect(200)
-            .end(function (err, res) {
-                // console.log(res.body);
-                recipientId = res.body;
+            .end(function(err, res) {
+                recipientId = res.text;
                 done();
             });
     });
