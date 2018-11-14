@@ -4,7 +4,7 @@
   "description": "Simple personal invoicing",
   "private": true,
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha --exit ./test/recipient.test.js",
+    "test": "node_modules/mocha/bin/mocha --exit ./test/*.test.js",
     "server": "nodemon app.js"
   },
   "repository": {
