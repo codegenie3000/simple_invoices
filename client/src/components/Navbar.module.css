@@ -1,0 +1,72 @@
+.outerContainer {
+    margin: 0 auto;
+    background-color: white;
+    height: 60px;
+    width: 100%;
+}
+
+.innerContainer {
+    composes: container from '../stylesheets/GlobalElements.module.css';
+    color: gray;
+    height: inherit;
+    padding: 0;
+    margin: auto;
+}
+
+.ul {
+    /*margin:0;*/
+    padding: 0;
+    margin: 0 20px 0 0;
+    right: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media only screen and (max-width: 576px) {
+    .ul {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .dropdownButton {
+        display: none;
+    }
+}
+
+.li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.siteTitle {
+    top: 50%;
+    position: absolute;
+    transform: translate(0, -50%);
+    float: left;
+    margin-left: 10px;
+}
+
+.dropdownButton {
+    color: gray;
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    right: 0;
+    margin-right: 20px;
+}
+
+.sideMenu {
+    background-color: white;
+    display: none;
+}
+
+.sideMenuLink {
+    text-align: center;
+    padding: 10px;
+    display: block;
+    color: gray;
+    text-decoration: none;
+    width: 100%;
+}

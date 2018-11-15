@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reduxThunk from 'redux-thunk';
 
-import Old_App from './components/App';
+import 'normalize.css';
+import './index.css';
+// import { Provider } from 'react-redux';
+// import { createStore, applyMiddleware } from 'redux';
+// import reduxThunk from 'redux-thunk';
+
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-    <Provider><Old_App /></Provider>,
+    <div>
+        <App/>
+    </div>,
     document.querySelector('#root')
 );
 

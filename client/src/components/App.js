@@ -1,5 +1,18 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-const App = <div>Hello World!</div>;
+import Splash from './Splash';
+import Navbar from './Navbar';
 
-export default App;
+export default () => {
+    return (
+        <div>
+            <BrowserRouter>
+                <div>
+                    <Navbar/>
+                    <Route exact path="/" component={ Splash }/>
+                </div>
+            </BrowserRouter>
+        </div>
+    );
+};
