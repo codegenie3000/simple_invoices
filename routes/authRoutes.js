@@ -2,17 +2,11 @@ const passport = require('passport');
 const User = require('../models/User');
 
 module.exports = (app) => {
-    /*app.get('/auth/test', (req, res) => {
-        res.status(200).send('foo');
-    });*/
-
     // passport-local signup
     app.post('/auth/local/signup', (req, res) => {
         const {email, firstName, lastName, displayName} = req.body;
         const NewUser = new User({
             email: email,
-            firstName: firstName,
-            lastName: lastName,
             displayName: displayName
         });
         User.register(NewUser, req.body.password, (err, account) => {

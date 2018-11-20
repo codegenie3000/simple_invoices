@@ -39,11 +39,11 @@ require('./routes/authRoutes')(app);
 require('./routes/invoiceRoutes')(app);
 require('./routes/recipientRoutes')(app);
 
-app.use('/test', (req, res) => {
-    res.send('home');
-});
+/*app.use('/test', (req, res) => {
+    res.send('reached');
+});*/
 
-/*app.get('/api/!*', (req, res, next) => {
+app.get('/api/*', (req, res, next) => {
     let err = new Error('Page Not Found');
     err.statusCode = 404;
     next(err);
@@ -53,7 +53,7 @@ app.use((err, req, res, next) => {
     console.log(err.message);
     if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
-});*/
+});
 
 // for testing purposes
 if (process.env.NODE_ENV === 'test') {
