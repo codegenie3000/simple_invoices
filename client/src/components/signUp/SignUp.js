@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 // import {withRouter} from 'react-router-dom';
 import * as actions from '../../actions/index.js';
-import {postNewUserLogin} from '../../actions/index';
 
 import ButtonPrimary from '../global/Button.js';
 
@@ -11,14 +10,19 @@ import globalStyles from '../../stylesheets/GlobalElements.module.css';
 import styles from './SignUp.module.css';
 import mapDispatchToProps from 'react-redux/es/connect/mapDispatchToProps';
 
+const requiredValue = value => value ? undefined: '*Required';
+const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
+    'Invalid email address' : undefined;
+const minLength = value => value && value.length > 5 ? undefined : 'Must be 5 characters or more';
+
 // Presentational Component - accepts props
-const SurveyField = ({ input, name, type, label, required, meta: { error, touched } }) => {
+const SurveyField = ({ input, name, type, label, required, meta: { touched, error, warning } }) => {
     return (
         <div className={ styles.formWidth }>
-            <label className={ globalStyles.styledLabel }>{ label }</label>
-            <input { ...input } className={ globalStyles.styledForm }/>
+            <label className={ globalStyles.styledLabel }>{label}</label>
+            <input {...input} name={name} required={required} type={type} className={ globalStyles.styledForm }/>
             <div>
-                { touched && error }
+                {touched && ((error && <span className={globalStyles.formWarning}>{error}</span>) || (warning && <span className={globalStyles.formWarning}>{warning}</span>))}
             </div>
         </div>
     );
@@ -26,42 +30,44 @@ const SurveyField = ({ input, name, type, label, required, meta: { error, touche
 
 const formFields = [
     {
-        name: 'Name',
+        name: 'displayName',
         label: 'Name',
         type: 'text',
-        required: true
+        required: true,
+        validate: requiredValue
     },
     {
-        name: 'Email',
+        name: 'email',
         label: 'Email',
         type: 'email',
-        required: true
+        required: true,
+        validate: [requiredValue, email]
     },
     {
-        name: 'Password',
+        name: 'password',
         label: 'Password',
         type: 'password',
-        required: true
-    }/*,
-    {
-        name: 'ConfirmPassword',
-        label: 'Re-enter password',
-        type: 'password',
-        required: true
-    }*/
+        required: true,
+        validate: [requiredValue, minLength]
+    }
 ];
 
 const renderFields = () => {
     const fieldsToReturn = [];
-    formFields.forEach(function ({ name, label, text, type, required }) {
+    formFields.forEach(function ({ name, label, type, required, validate }) {
         fieldsToReturn.push(
             <Field
                 key={ name }
                 component={ SurveyField }
                 name={ name }
-                type={ type }
-                label={ label }
-                required={ required }
+                props = {
+                    {
+                        label: label,
+                        type: type,
+                        required: required
+                    }
+                }
+                validate = {validate}
             />
         );
     });
@@ -69,7 +75,7 @@ const renderFields = () => {
 };
 
 let SignUp = props => {
-    const {handleSubmit} = props;
+    const {handleSubmit, pristine, reset, submitting, postNewUserLogin} = props;
     const test = values => {
         postNewUserLogin(values);
     };

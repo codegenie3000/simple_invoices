@@ -1,9 +1,22 @@
 import axios from 'axios';
 import { FETCH_USER } from './types';
 
-export const postNewUserLogin = (values) => {
+export function postNewUserLogin(values) {
     console.log(values);
-};
+    axios.post('/auth/local/signup', values)
+        .then((result) => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    // return {type: FETCH_USER, payload: request}
+}
+
+/*export const postNewUserLogin = (values) => {
+    console.log(values);
+};*/
 
 /*
 export const postNewUserLogin = (values) => async dispatch => {
