@@ -54,6 +54,7 @@ const formFields = [
 
 const renderFields = () => {
     const fieldsToReturn = [];
+    //TODO rewrite with map?
     formFields.forEach(function ({ name, label, type, required, validate }) {
         fieldsToReturn.push(
             <Field
