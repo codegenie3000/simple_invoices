@@ -6,17 +6,21 @@ import * as actions from '../../actions/index.js';
 
 import ButtonPrimary from '../global/Button.js';
 
+import SurveyField from './SignUpField';
+
 import globalStyles from '../../stylesheets/GlobalElements.module.css';
-import styles from './SignUp.module.css';
-import mapDispatchToProps from 'react-redux/es/connect/mapDispatchToProps';
+// import styles from './SignUp.module.css';
+// import mapDispatchToProps from 'react-redux/es/connect/mapDispatchToProps';
 
 const requiredValue = value => value ? undefined: '*Required';
 const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
     'Invalid email address' : undefined;
 const minLength = value => value && value.length > 5 ? undefined : 'Must be 5 characters or more';
 
+
+
 // Presentational Component - accepts props
-const SurveyField = ({ input, name, type, label, required, meta: { touched, error, warning } }) => {
+/*const SurveyField = ({ input, name, type, label, required, meta: { touched, error, warning } }) => {
     return (
         <div className={ styles.formWidth }>
             <label className={ globalStyles.styledLabel }>{label}</label>
@@ -26,7 +30,7 @@ const SurveyField = ({ input, name, type, label, required, meta: { touched, erro
             </div>
         </div>
     );
-};
+};*/
 
 const formFields = [
     {

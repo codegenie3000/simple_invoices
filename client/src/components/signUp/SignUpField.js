@@ -1,41 +1,24 @@
-/*
 import React from 'react';
-import {Field} from 'redux-form';
+import classNames from 'classnames';
 
-const SurveyField = ({input, name, type, label, required}) => {
+import globalStyles from '../../stylesheets/GlobalElements.module.css';
+import styles from './SignUpField.module.css';
+
+const labelClasses = classNames(
+    styles.formWidth,
+    { foo: true });
+
+// Presentational Component - accepts props
+const SurveyField = ({ input, name, type, label, required, meta: { touched, error, warning } }) => {
     return (
-        <div>
-            <label>{label}</label>
-            <input {...input} style={{marginBottom: '5px'}} />
-            <div style={{marginBottom: '20px'}}>
-                {touched && error}
+        <div className={ labelClasses }>
+            <label className={ globalStyles.styledLabel }>{label}</label>
+            <input {...input} name={name} required={required} type={type} className={ globalStyles.styledForm }/>
+            <div>
+                {touched && ((error && <span className={globalStyles.formWarning}>{error}</span>) || (warning && <span className={globalStyles.formWarning}>{warning}</span>))}
             </div>
         </div>
     );
 };
 
-/!*
-export default ({input, label, meta: {error, touched}}) => {
-    return (
-        <div>
-            <label>{label}</label>
-            <input {...input} style={{marginBottom: '5px'}} />
-            <div style={{marginBottom: '20px'}}>
-                {touched && error}
-            </div>
-        </div>
-    );
-};*!/
-
-export default ({name, label, type, required}) => {
-    return (
-        <Field
-            key={name}
-            component={SurveyField}
-            name={name}
-            type={type}
-            label={label}
-            required={required}
-        />
-    );
-}*/
+export default SurveyField;
