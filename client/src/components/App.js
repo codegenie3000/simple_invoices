@@ -5,7 +5,7 @@ import * as actions from '../actions';
 
 import Splash from './Splash';
 import Navbar from './Navbar';
-import SignUp from './signUp/SignUp';
+import SignUp from '../containers/signup/SignUp'
 import SignUpSuccess from './SignUpSuccess';
 
 class App extends Component{
@@ -24,19 +24,5 @@ class App extends Component{
         );
     }
 }
-
-/*export default () => {
-    return (
-        <div>
-            <BrowserRouter>
-                <div>
-                    <Navbar/>
-                    <Route exact path="/" component={ Splash }/>
-                    <Route exact path="/login" component={ Signup }/>
-                </div>
-            </BrowserRouter>
-        </div>
-    );
-};*/
 
 export default connect(null, actions)(App);
