@@ -52,11 +52,10 @@ const renderFields = () => {
                 validate={validate}
             />);
     });
-    // return fieldsToReturn;
 };
 
 let SignUp = props => {
-    const { handleSubmit, pristine, reset, submitting, postNewUserLogin } = props;
+    const { handleSubmit, postNewUserLogin } = props;
     const test = values => {
         postNewUserLogin(values);
     };
