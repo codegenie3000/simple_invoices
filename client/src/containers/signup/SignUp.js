@@ -1,15 +1,17 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
+import {postNewUserLogin} from '../../actions/index';
 import globalStyles from '../../stylesheets/GlobalElements.module.css';
 import ButtonPrimary from '../../components/global/Button';
 import SignUpField from '../../components/signUp/SignUpField';
 
+// Validations
 const requiredValue = value => value ? undefined : '*Required';
 const email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
     'Invalid email address' : undefined;
 const minLength = value => value && value.length > 5 ? undefined : 'Must be 5 characters or more';
+
 
 const formFields = [
     {
@@ -35,7 +37,7 @@ const formFields = [
     }
 ];
 
-const renderFields = () => {
+const renderFormFields = () => {
     return formFields.map(function ({ name, label, type, required, validate }) {
         return (
             <Field
@@ -55,8 +57,9 @@ const renderFields = () => {
 };
 
 let SignUp = props => {
+    //handleSubmit is passed from reduxForm
     const { handleSubmit, postNewUserLogin } = props;
-    const test = values => {
+    const postValues = values => {
         postNewUserLogin(values);
     };
     return (
@@ -64,8 +67,8 @@ let SignUp = props => {
             <div className={ globalStyles.flexOneOuter }>
                 <div className={ globalStyles.flexOneInner }>
                     <h1>Sign Up</h1>
-                    <form onSubmit={ handleSubmit(test) }>
-                        { renderFields() }
+                    <form onSubmit={ handleSubmit(postValues) }>
+                        { renderFormFields() }
                         <ButtonPrimary buttonText={ 'Sign up' }/>
                     </form>
                 </div>
@@ -74,7 +77,7 @@ let SignUp = props => {
     );
 };
 
-SignUp = connect(null, actions)(SignUp);
+SignUp = connect(null, postNewUserLogin)(SignUp);
 
 SignUp = reduxForm({
     form: 'SignUpForm'
