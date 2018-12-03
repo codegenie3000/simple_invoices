@@ -6,9 +6,9 @@ import * as actions from '../actions';
 import Splash from './Splash';
 import Navbar from './Navbar';
 import SignUp from '../containers/signup/SignUp'
-import SignUpSuccess from './SignUpSuccess';
+import RecipientsList from '../containers/recipients/RecipientsList';
 
-class App extends Component{
+class App extends Component {
     render() {
         return (
             <div>
@@ -17,7 +17,7 @@ class App extends Component{
                         <Navbar/>
                         <Route exact path="/" component={ Splash }/>
                         <Route exact path="/signUp" component={ SignUp }/>
-                        <Route exact path="/signUpSuccess" component={SignUpSuccess} />
+                        <Route exact path="/recipients" component={ RecipientsList }/>
                     </div>
                 </BrowserRouter>
             </div>

@@ -5,7 +5,8 @@ const buttonMargin = {
     margin: '10px auto auto 0'
 };
 
-function ButtonPrimary ({buttonText}) {
+function ButtonPrimary (props) {
+    const {buttonInner: buttonText} = props;
     return (
         <button className={globalStyles.buttonPrimary} style={buttonMargin} type="submit">
             { buttonText }
@@ -14,12 +15,3 @@ function ButtonPrimary ({buttonText}) {
 }
 
 export default ButtonPrimary;
-
-/*
-export default ({buttonText}) => {
-    return (
-        <button className={globalStyles.buttonPrimary} style={buttonMargin} type="submit">
-            { buttonText }
-        </button>
-    );
-}*/

@@ -21,6 +21,12 @@
     justify-content: space-evenly;
 }
 
+.flexOneOuterLeft {
+    composes: flexOneOuter;
+    margin-left: 0;
+    justify-content: left;
+}
+
 .flexOneInner {
     min-width: 300px;
     width: 500px;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { FETCH_USER } from './types';
+import { FETCH_RECIPIENTS } from './types';
 
 export function postNewUserLogin(values) {
     console.log(values);
@@ -12,6 +13,19 @@ export function postNewUserLogin(values) {
         });
 
     // return {type: FETCH_USER, payload: request}
+}
+
+export function fetchRecipients() {
+    axios.get('/api/recipients')
+        .then(result => {
+            return {
+                type: FETCH_RECIPIENTS,
+                payload: result
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 /*export const postNewUserLogin = (values) => {

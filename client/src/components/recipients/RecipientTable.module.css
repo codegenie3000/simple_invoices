@@ -1,0 +1,20 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.th {
+    border-collapse: collapse;
+    padding: 8px;
+    border: none;
+    text-align: left;
+}
+
+.td {
+    composes: th;
+}
+
+.tr:nth-child(even) {
+    background-color: rgb(235, 235, 235)
+}
