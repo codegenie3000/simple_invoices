@@ -6,7 +6,7 @@ const buttonMargin = {
 };
 
 function ButtonPrimary (props) {
-    const {buttonInner: buttonText} = props;
+    const {buttonText} = props;
     return (
         <button className={globalStyles.buttonPrimary} style={buttonMargin} type="submit">
             { buttonText }

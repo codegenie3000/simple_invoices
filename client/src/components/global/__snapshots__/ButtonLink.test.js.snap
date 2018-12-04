@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Link should receive a click 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "PUSH",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 2,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "key": "952tt4",
+          "pathname": "/foo",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <Route>
+      <withRouter(ButtonLink)
+        history="foo"
+        label="foo"
+        onClick={[Function]}
+        to="/foo"
+      >
+        <Route>
+          <ButtonLink
+            history={
+              Object {
+                "action": "PUSH",
+                "block": [Function],
+                "createHref": [Function],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "length": 2,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "key": "952tt4",
+                  "pathname": "/foo",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+            label="foo"
+            location={
+              Object {
+                "hash": "",
+                "key": "952tt4",
+                "pathname": "/foo",
+                "search": "",
+                "state": undefined,
+              }
+            }
+            match={
+              Object {
+                "isExact": false,
+                "params": Object {},
+                "path": "/",
+                "url": "/",
+              }
+            }
+            onClick={[Function]}
+            to="/foo"
+          >
+            <button
+              className="buttonPrimary"
+              onClick={[Function]}
+            >
+              foo
+            </button>
+          </ButtonLink>
+        </Route>
+      </withRouter(ButtonLink)>
+    </Route>
+  </Router>
+</BrowserRouter>
+`;
+
+exports[`Button Link should render correctly 1`] = `null`;

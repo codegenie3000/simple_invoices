@@ -6,7 +6,7 @@ const buttonMargin = {
     margin: '10px auto auto 0'
 };
 
-function ButtonPrimary (props) {
+function ButtonLink (props) {
     const {to, label, history, onClick, location, match, staticContext, ...rest} = props;
     return (
         <button
@@ -21,4 +21,4 @@ function ButtonPrimary (props) {
     );
 }
 
-export default withRouter(ButtonPrimary);
+export default withRouter(ButtonLink);

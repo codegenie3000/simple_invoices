@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Primary should render correctly 1`] = `
+<button
+  class="buttonPrimary"
+  style="margin:10px auto auto 0"
+  type="submit"
+>
+  foo
+</button>
+`;
