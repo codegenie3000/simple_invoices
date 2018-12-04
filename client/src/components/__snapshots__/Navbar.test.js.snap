@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navbar/> renders properly 1`] = `
+<div
+  className="outerContainer"
+>
+  <div
+    className="innerContainer"
+  >
+    <div
+      className="siteTitle"
+    >
+      Simple Invoices
+    </div>
+    <ul
+      className="ul"
+    >
+      <li
+        className="li"
+      >
+        <Link
+          className="link"
+          replace={false}
+          to="/about"
+        >
+          About
+        </Link>
+      </li>
+      <li
+        className="li"
+      >
+        <Link
+          className="link"
+          replace={false}
+          to="/login"
+        >
+          Log In
+        </Link>
+      </li>
+    </ul>
+    <div
+      className="dropdownButton"
+    >
+      <i
+        className="fa fa-bars fa-lg"
+      />
+    </div>
+    <div
+      className="sideMenu"
+    >
+      <Link
+        className="sideMenuLink"
+        replace={false}
+        to="/login"
+      >
+        Login
+      </Link>
+      <Link
+        className="sideMenuLink"
+        replace={false}
+        to="/about"
+      >
+        About
+      </Link>
+    </div>
+  </div>
+</div>
+`;

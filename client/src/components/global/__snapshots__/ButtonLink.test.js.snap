@@ -15,7 +15,7 @@ exports[`Button Link should receive a click 1`] = `
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "952tt4",
+          "key": "6m0xme",
           "pathname": "/foo",
           "search": "",
           "state": undefined,
@@ -46,7 +46,7 @@ exports[`Button Link should receive a click 1`] = `
                 "listen": [Function],
                 "location": Object {
                   "hash": "",
-                  "key": "952tt4",
+                  "key": "6m0xme",
                   "pathname": "/foo",
                   "search": "",
                   "state": undefined,
@@ -59,7 +59,7 @@ exports[`Button Link should receive a click 1`] = `
             location={
               Object {
                 "hash": "",
-                "key": "952tt4",
+                "key": "6m0xme",
                 "pathname": "/foo",
                 "search": "",
                 "state": undefined,
