@@ -7,8 +7,8 @@ import globalStyles from '../../stylesheets/GlobalElements.module.css';
 import NoRecipients from '../../components/recipients/NoRecipients';
 import RecipientTable from '../../components/recipients/RecipientTable';
 
-
 const RecipientsList = ({recipients}) => {
+    // recipients is an array of objects with recipient data
     function renderRecipients() {
         if (recipients.length < 1) {
             return <NoRecipients/>

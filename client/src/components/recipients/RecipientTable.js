@@ -18,6 +18,8 @@ const RecipientRow = props => {
     );
 };
 
+// Receives an array of objects with recipient data
+// and returns a table
 export default ({recipients}) => {
     function renderRecipients(recipients) {
         return recipients.map(recipient => {

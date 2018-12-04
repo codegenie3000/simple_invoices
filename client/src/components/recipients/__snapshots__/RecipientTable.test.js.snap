@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Recipient Table renders correctly 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <_default
+      recipients={
+        Array [
+          Object {
+            "balance": 1000.25,
+            "id": "abc123",
+            "name": "Jimmy McNulty",
+          },
+          Object {
+            "balance": 200,
+            "id": "xyz789",
+            "name": "Lester Freamon",
+          },
+        ]
+      }
+    >
+      <table
+        className="table"
+      >
+        <thead>
+          <tr>
+            <th
+              className="th"
+            >
+              Name
+            </th>
+            <th
+              className="th"
+            >
+              Balance
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <RecipientRow
+            balance={1000.25}
+            id="abc123"
+            key="abc123"
+            name="Jimmy McNulty"
+          >
+            <tr
+              className="tr"
+            >
+              <td
+                className="td"
+              >
+                <Link
+                  replace={false}
+                  to="api/recipients/abc123"
+                >
+                  <a
+                    href="/api/recipients/abc123"
+                    onClick={[Function]}
+                  >
+                    Jimmy McNulty
+                  </a>
+                </Link>
+              </td>
+              <td
+                className="td"
+              >
+                1,000.25
+              </td>
+            </tr>
+          </RecipientRow>
+          <RecipientRow
+            balance={200}
+            id="xyz789"
+            key="xyz789"
+            name="Lester Freamon"
+          >
+            <tr
+              className="tr"
+            >
+              <td
+                className="td"
+              >
+                <Link
+                  replace={false}
+                  to="api/recipients/xyz789"
+                >
+                  <a
+                    href="/api/recipients/xyz789"
+                    onClick={[Function]}
+                  >
+                    Lester Freamon
+                  </a>
+                </Link>
+              </td>
+              <td
+                className="td"
+              >
+                200.00
+              </td>
+            </tr>
+          </RecipientRow>
+        </tbody>
+      </table>
+    </_default>
+  </Router>
+</BrowserRouter>
+`;
