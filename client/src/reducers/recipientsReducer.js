@@ -1,6 +1,5 @@
 import {FETCH_RECIPIENTS} from '../actions/types';
 
-/*
 export default function(state = [], action) {
     switch(action.type) {
         case FETCH_RECIPIENTS:
@@ -8,9 +7,10 @@ export default function(state = [], action) {
         default:
             return state;
     }
-}*/
+}
 
 // for development purposes
+/*
 export default function() {
     return [
         {
@@ -23,4 +23,4 @@ export default function() {
             id: 'xyz789'
         }
     ];
-}
+}*/

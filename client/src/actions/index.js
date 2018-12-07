@@ -16,16 +16,11 @@ export function postNewUserLogin(values) {
 }
 
 export function fetchRecipients() {
-    axios.get('/api/recipients')
-        .then(result => {
-            return {
-                type: FETCH_RECIPIENTS,
-                payload: result
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    const request = axios.get('/api/recipients');
+    return {
+        type: FETCH_RECIPIENTS,
+        payload: request
+    }
 }
 
 /*export const postNewUserLogin = (values) => {
