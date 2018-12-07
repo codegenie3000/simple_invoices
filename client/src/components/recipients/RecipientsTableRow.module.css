@@ -1,0 +1,10 @@
+.td {
+    border-collapse: collapse;
+    padding: 8px;
+    border: none;
+    text-align: left;
+}
+
+.tr:nth-child(even) {
+    background-color: rgb(235, 235, 235)
+}

@@ -1,13 +1,15 @@
 import React from 'react';
-import styles from './RecipientTable.module.css';
+import styles from './RecipientsTable.module.css';
 import { Link } from 'react-router-dom';
 
-function convertToDecimalString(number) {
+import RecipientTableRow from './RecipientsTableRow';
+
+/*function convertToDecimalString(number) {
     let decimalString = parseFloat(Math.round(number * 100) /100).toFixed(2).toString();
     return decimalString.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
+}*/
 
-const RecipientRow = props => {
+/*const RecipientTableRow = props => {
     const { id, name, balance } = props;
     const url = `api/recipients/${ id }`;
     return (
@@ -16,14 +18,13 @@ const RecipientRow = props => {
             <td className={ styles.td }>{ convertToDecimalString(balance) }</td>
         </tr>
     );
-};
+};*/
 
-// Receives an array of objects with recipient data
-// and returns a table
+// Receives an array of objects with recipient data and returns a table
 export default ({recipients}) => {
     function renderRecipients(recipients) {
         return recipients.map(recipient => {
-            return <RecipientRow
+            return <RecipientTableRow
                 key={ recipient.id }
                 id={ recipient.id }
                 name={ recipient.name }

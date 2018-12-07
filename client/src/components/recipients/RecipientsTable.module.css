@@ -10,11 +10,3 @@
     border: none;
     text-align: left;
 }
-
-.td {
-    composes: th;
-}
-
-.tr:nth-child(even) {
-    background-color: rgb(235, 235, 235)
-}
