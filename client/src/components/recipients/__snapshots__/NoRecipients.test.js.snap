@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`No Recipients Component should render correctly 1`] = `
-<div>
+<div
+  className="no-recipients"
+>
   You don't have any recipients. Please add one.
 </div>
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, mount, shallow } from 'enzyme';
 import { BrowserRouter, withRouter, Route } from 'react-router-dom';
 
-import RecipientTable from './RecipientTable';
+import RecipientTable from './RecipientsTable';
 
 describe('Recipient Table', () => {
     it('renders correctly', ()=> {

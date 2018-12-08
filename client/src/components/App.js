@@ -6,7 +6,7 @@ import * as actions from '../actions';
 import Splash from './Splash';
 import Navbar from './Navbar';
 import SignUp from '../containers/signup/SignUp'
-import RecipientsList from '../containers/recipients/RecipientsList';
+import RecipientsList from '../containers/recipients/Recipients';
 
 class App extends Component {
     render() {
