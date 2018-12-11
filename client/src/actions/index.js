@@ -4,15 +4,15 @@ import { FETCH_RECIPIENTS } from './types';
 
 export function postNewUserLogin(values) {
     console.log(values);
-    axios.post('/auth/local/signup', values)
-        .then((result) => {
-            console.log(result);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-    // return {type: FETCH_USER, payload: request}
+    /*return {
+        type: FETCH_USER,
+        payload: values
+    };*/
+    const request = axios.post('/auth/local/signup', values);
+    return {
+        type: FETCH_USER,
+        payload: request
+    }
 }
 
 export function fetchRecipients() {
@@ -22,16 +22,3 @@ export function fetchRecipients() {
         payload: request
     }
 }
-
-/*export const postNewUserLogin = (values) => {
-    console.log(values);
-};*/
-
-/*
-export const postNewUserLogin = (values) => async dispatch => {
-    console.log(values);
-    const res = await axios.post('/auth/local/signup', values);
-    console.log(res);
-
-    dispatch({type: FETCH_USER, payload: res.data});
-};*/
