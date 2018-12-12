@@ -5,7 +5,7 @@ import {reduxForm} from 'redux-form';
 
 import Fields from './FormFields';
 
-const SignUpForm = props => {
+export const SignUpForm = props => {
     const { handleSubmit, connectForm } = props;
 
     return (

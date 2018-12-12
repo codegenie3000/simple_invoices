@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignUpFormRedux/> matches snapshot 1`] = `
+<div
+  className="containerWhiteRounded"
+>
+  <div
+    className="flexOneOuter"
+  >
+    <div
+      className="flexOneInner"
+    >
+      <h1>
+        Sign Up
+      </h1>
+      <form>
+        <Fields />
+        <ButtonPrimary
+          buttonText="Sign up"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+`;
