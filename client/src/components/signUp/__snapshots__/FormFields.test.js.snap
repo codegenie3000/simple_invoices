@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FormFields /> matches the snapshot 1`] = `
+Array [
+  <Field
+    component={[Function]}
+    key="displayName"
+    name="displayName"
+    props={
+      Object {
+        "label": "Name",
+        "required": true,
+        "type": "text",
+      }
+    }
+    validate={[Function]}
+  />,
+  <Field
+    component={[Function]}
+    key="email"
+    name="email"
+    props={
+      Object {
+        "label": "Email",
+        "required": true,
+        "type": "email",
+      }
+    }
+    validate={
+      Array [
+        [Function],
+        [Function],
+      ]
+    }
+  />,
+  <Field
+    component={[Function]}
+    key="password"
+    name="password"
+    props={
+      Object {
+        "label": "Password",
+        "required": true,
+        "type": "password",
+      }
+    }
+    validate={
+      Array [
+        [Function],
+        [Function],
+      ]
+    }
+  />,
+]
+`;
