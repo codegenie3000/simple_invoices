@@ -10,4 +10,12 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { fetchRecipients })(RecipientsComponent);
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchRecipients: ()=> {
+            dispatch(fetchRecipients);
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipientsComponent);
