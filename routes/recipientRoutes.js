@@ -94,7 +94,8 @@ module.exports = app => {
                     .then(user => {
                         // console.log(typeof savedRecord.id);
                         // console.log(typeof savedRecord._id);
-                        res.send(savedRecord.id); //send the string Id
+                        // res.send(savedRecord.id); //send the string Id
+                        res.send({newRecipientId: savedRecord.id});
                     })
                     .catch(err => {
                         next(err);

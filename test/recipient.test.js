@@ -36,7 +36,7 @@ describe('Test Recipient Routes', function () {
             .post('/api/recipients')
             .set('Accept', 'application/json')
             .send(recipientData.one)
-            .expect('Content-Type', /html/)
+            .expect('Content-Type', /json/)
             .expect(200, done);
     });
     it('POST\'s another recipient', function (done) {
@@ -44,7 +44,7 @@ describe('Test Recipient Routes', function () {
             .post('/api/recipients')
             .set('Accept', 'application/json')
             .send(recipientData.two)
-            .expect('Content-Type', /html/)
+            .expect('Content-Type', /json/)
             .expect(200, done);
     });
     it('GET all recipients', function (done) {
