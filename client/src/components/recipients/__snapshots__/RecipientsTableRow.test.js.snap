@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RecipientTableRow /> renders given data 1`] = `
+<tr
+  className="tr"
+>
+  <td
+    className="td"
+  >
+    <Link
+      replace={false}
+      to="api/recipients/abc123"
+    >
+      Jimmy McNulty
+    </Link>
+  </td>
+  <td
+    className="td"
+  >
+    1,000.25
+  </td>
+</tr>
+`;
