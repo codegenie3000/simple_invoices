@@ -1,12 +1,10 @@
 import configureMockStore from 'redux-mock-store';
-// import promise from 'redux-promise';
-//TODO change to redux-thunk
 import axios from 'axios'
 import reduxThunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
-import * as actions from './index';
-import { REQUEST_RECIPIENTS } from './types';
 
+import * as actions from './index';
+import { REQUEST_RECIPIENTS, RECEIVE_RECIPIENTS } from './types';
 // import initialState
 import { initialState } from '../reducers/recipientsReducer';
 
@@ -23,10 +21,50 @@ describe('initial state', () => {
     });
 });
 
-// provide a reply to a get request to an API
-// mock the API reply via mock = new MockAdapter(axios)
+describe('requestRecipients', () => {
+    let store, expectedActions;
 
-describe('test fetch recipients', () => {
+    beforeAll(() => {
+        store = mockStore(initialState);
+
+        expectedActions = [
+            {
+                type: REQUEST_RECIPIENTS
+            }
+        ];
+    });
+    it('matches type', () => {
+        store.dispatch(actions.requestRecipients());
+        expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+    });
+});
+
+describe('receiveRecipients', () => {
+    let store, expectedActions, data;
+
+    beforeAll(() => {
+        data = [ {
+            name: 'Jimmy McNulty',
+            balance: 1000.25,
+            id: 'abc123'
+        } ];
+
+        store = mockStore(initialState);
+
+        expectedActions = [
+            {
+                type: RECEIVE_RECIPIENTS,
+                payload: data
+            }
+        ];
+    });
+    it('tests the type', () => {
+        store.dispatch(actions.receiveRecipients());
+        expect(store.getActions()[0].type).toEqual(expectedActions[0].type);
+    });
+});
+
+describe('fetchRecipients async', () => {
     let store, expectedActions, data;
 
     beforeAll(() => {
@@ -44,7 +82,10 @@ describe('test fetch recipients', () => {
         // create an expected reply to match to
         expectedActions = [
             {
-                type: REQUEST_RECIPIENTS,
+                type: REQUEST_RECIPIENTS
+            },
+            {
+                type: RECEIVE_RECIPIENTS,
                 payload: [
                     {
                         name: 'Jimmy McNulty',
@@ -56,12 +97,16 @@ describe('test fetch recipients', () => {
         ];
     });
     it('tests that the type is correct', () => {
-        return store.dispatch(actions.requestRecipients).then(() => {
-            expect(store.getActions()[ 0 ].type).toEqual(expectedActions[ 0 ].type);
-
+        return store.dispatch(actions.fetchRecipients).then(() => {
+            const storeActions = store.getActions();
+            expect(storeActions[0].type).toEqual(expectedActions[0].type);
+            expect(storeActions[1].type).toEqual(expectedActions[1].type);
         });
     });
     it('tests the payload', () => {
-        expect(store.getActions()[ 0 ].payload).toEqual(expectedActions[ 0 ].payload);
+        return store.dispatch(actions.fetchRecipients).then(() => {
+            const storeActions = store.getActions();
+            expect(storeActions[1].payload).toEqual(expectedActions[1].payload);
+        });
     });
 });

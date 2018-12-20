@@ -7,12 +7,32 @@ export const initialState = {
     isLoading: false
 };
 
+// Original before adding isLoading
+/*
 export default (state = initialState, action) => {
     switch (action.type) {
         case REQUEST_RECIPIENTS:
             return Object.assign({}, state, {
                 recipients: action.payload,
                 isLoading: true
+            });
+        default:
+            return state;
+    }
+}*/
+
+// new with isLoading
+
+export default (state = initialState, action) => {
+    switch (action.type) {
+        case REQUEST_RECIPIENTS:
+            return Object.assign({}, state, {
+                isLoading: true
+            });
+        case RECEIVE_RECIPIENTS:
+            return Object.assign({}, state, {
+                recipients: action.payload,
+                isLoading: false
             });
         default:
             return state;

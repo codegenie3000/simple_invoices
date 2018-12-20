@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import { FETCH_USER, RECEIVE_RECIPIENTS } from './types';
 import { POST_USER } from './types';
 import { REQUEST_RECIPIENTS } from './types';
 
@@ -12,11 +12,36 @@ export const postNewUser = (values) => async dispatch => {
     });
 };
 
-export const requestRecipients = async dispatch => {
-    const res = await axios.get('/api/recipients');
+export const requestRecipients = () => {
+    return {
+        type: REQUEST_RECIPIENTS
+    }
+};
 
-    dispatch({
+export const receiveRecipients = recipients => {
+    return {
+        type: RECEIVE_RECIPIENTS,
+        payload: recipients
+    }
+};
+
+export const fetchRecipients = async dispatch => {
+    dispatch(requestRecipients());
+
+    const res = await axios.get('/api/recipients');
+    dispatch(receiveRecipients(res.data));
+};
+
+/*
+export const receivePosts = async dispatch => {
+    const res = axios.get('/api/recipients');
+
+};
+
+export const requestRecipients = async dispatch => {
+    // const res = await axios.get('/api/recipients');
+    /!*dispatch({
         type: REQUEST_RECIPIENTS,
         payload: res.data
-    });
-};
+    });*!/
+};*/
