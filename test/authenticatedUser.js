@@ -16,14 +16,11 @@ module.exports = {
             .post('/auth/local/signup')
             .set('Accept', 'text/html')
             .send(userCredentials)
+            .expect('Content-Type', /json/)
             .expect(200, {
-                userSignedIn: true
+                email: userCredentials.email,
+                displayName: userCredentials.displayName,
+                recipients: []
             }, done);
-            /*.expect('Content-Type', /text/)
-            .expect('success')
-            .end(() => {
-                console.log('added user');
-                done();
-            });*/
     }
 };
