@@ -1,5 +1,6 @@
 import recipientsReducer from './recipientsReducer';
-import { FETCH_RECIPIENTS } from '../actions/types';
+import { REQUEST_RECIPIENTS } from '../actions/types';
+import {initialState} from './recipientsReducer';
 
 const recipientData = [
     {
@@ -16,15 +17,12 @@ const recipientData = [
 
 describe('recipients reducer', () => {
     it('should return the initial state', () => {
-        expect(recipientsReducer(undefined, {})).toEqual({
-            recipients: [],
-            isLoading: true
-        });
+        expect(recipientsReducer(undefined, {})).toEqual(initialState);
     });
-    it('should handle FETCH_RECIPIENTS', () => {
+    it('should handle REQUEST_RECIPIENTS', () => {
         expect(recipientsReducer(
             undefined, {
-                type: FETCH_RECIPIENTS,
+                type: REQUEST_RECIPIENTS,
                 payload: recipientData
             })).toEqual(
             {

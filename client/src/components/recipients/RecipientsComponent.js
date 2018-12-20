@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 // import {connect} from 'react-redux';
-// import {fetchRecipients} from '../../actions';
+// import {requestRecipients} from '../../actions';
 import ButtonLink from '../../components/global/ButtonLink';
 import globalStyles from '../../stylesheets/GlobalElements.module.css';
 

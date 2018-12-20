@@ -5,7 +5,7 @@ import axios from 'axios'
 import reduxThunk from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import * as actions from './index';
-import { FETCH_RECIPIENTS } from './types';
+import { REQUEST_RECIPIENTS } from './types';
 
 // import initialState
 import { initialState } from '../reducers/recipientsReducer';
@@ -18,7 +18,7 @@ const mock = new MockAdapter(axios);
 
 describe('initial state', () => {
     it('tests the initial state', () => {
-        expect(initialState.isLoading).toEqual(true);
+        expect(initialState.isLoading).toEqual(false);
         expect(initialState.recipients.length).toEqual(0);
     });
 });
@@ -44,7 +44,8 @@ describe('test fetch recipients', () => {
         // create an expected reply to match to
         expectedActions = [
             {
-                type: FETCH_RECIPIENTS, payload: [
+                type: REQUEST_RECIPIENTS,
+                payload: [
                     {
                         name: 'Jimmy McNulty',
                         balance: 1000.25,
@@ -55,12 +56,12 @@ describe('test fetch recipients', () => {
         ];
     });
     it('tests that the type is correct', () => {
-        return store.dispatch(actions.fetchRecipients).then(() => {
+        return store.dispatch(actions.requestRecipients).then(() => {
             expect(store.getActions()[ 0 ].type).toEqual(expectedActions[ 0 ].type);
 
         });
     });
-    it('tests the payload', ()=> {
+    it('tests the payload', () => {
         expect(store.getActions()[ 0 ].payload).toEqual(expectedActions[ 0 ].payload);
     });
 });

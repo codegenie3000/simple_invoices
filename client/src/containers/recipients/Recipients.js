@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchRecipients } from '../../actions';
+import { requestRecipients } from '../../actions';
 
 import RecipientsComponent from '../../components/recipients/RecipientsComponent';
 
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         fetchRecipients: ()=> {
-            dispatch(fetchRecipients);
+            dispatch(requestRecipients);
         }
     }
 }
