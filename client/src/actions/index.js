@@ -15,13 +15,9 @@ import { POST_USER, FETCH_USER, REQUEST_RECIPIENTS, RECEIVE_RECIPIENTS } from '.
 // await the server response
 // receive the user's data
 
-export const createNewUser = async dispatch => {
+/*export const createNewUser = async dispatch => {
     // post to server and await a response
-};
-
-
-export const postNewUser =
-
+};*/
 export const requestRecipients = () => {
     return {
         type: REQUEST_RECIPIENTS
